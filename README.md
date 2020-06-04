@@ -17,6 +17,12 @@
 
 [The-Missing-Semester-of-Your-CS-Education](https://github.com/wangzitiansky/The-Missing-Semester-of-Your-CS-Education--)
 
-### 博客总结
+### 博客
 
-主要有几个主题，可以分别点击进入
+主要有几个主题
+具体文章可以点进去看:books:
+
++ [算法与数据结构](https://github.com/wangzitiansky/Learning/projects/1)
+
++ [计算机网络](https://github.com/wangzitiansky/Learning/projects/2)
+

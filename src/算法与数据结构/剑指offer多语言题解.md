@@ -1,0 +1,1067 @@
+# 剑指offer题解
+
+多种编程语言打卡剑指offer :clap:
+
+|  题目  |  链接   |  分类    |     备注    |
+|--------|---------|---------|-------------|
+|队列的最大值|[队列的最大值](#队列的最大值)|
+
+<details> 
+<summary>面试题3: 找出数组中重复数字</summary>  
+
+<details>
+  <summary>Java</summary>
+
+```java
+class Solution {
+    public int duplicateInArray(int[] nums) {
+        int n = nums.length;
+        if(n == 0){
+            return -1;
+        }
+
+        for(int i = 0; i < n; i ++){
+            if(nums[i] < 0 || nums[i] > n - 1)
+                return -1;
+        }
+
+        for(int i = 0; i < n; i ++){
+            while(nums[i] != i){
+                if(nums[i] == nums[nums[i]]){
+                    return nums[i];
+                }
+                int temp = nums[i];
+                nums[i] = nums[temp];
+                nums[temp] = temp;
+            }
+        }
+        return -1;
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary>C++</summary>
+
+
+  ```cpp
+class Solution {
+public:
+    int duplicateInArray(vector<int>& nums) {
+        int n = nums.size();
+        if(n == 0) return -1;
+        for(int i = 0; i < n; i ++){
+            if(nums[i] < 0 || nums[i] > n - 1){
+                return -1;
+            }
+        }
+        for(int i = 0; i < n; i ++){
+            while(nums[i] != i){
+                if(nums[i] == nums[nums[i]]){
+                    return nums[i];
+                }
+                swap(nums[i], nums[nums[i]]);
+            }
+        }
+        return -1;
+    }
+};
+  ```
+
+
+
+
+
+</details>
+
+
+
+<details>
+  <summary>Python</summary>
+
+
+
+
+```python
+class Solution(object):
+    def duplicateInArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype int
+        """
+        if not nums:
+            return -1
+        length = len(nums)
+        for n in nums:
+            if n < 0 or n > length - 1:
+                return -1
+        for i in range(length):
+            while nums[i] != i:
+                if nums[i] == nums[nums[i]]:
+                    return nums[i]
+                temp = nums[i]
+                nums[i], nums[temp] = nums[temp], nums[i]
+        return -1
+```
+
+
+
+
+
+
+</details>
+
+
+
+
+
+</details>
+
+<details>
+  <summary>面试题3.2：不修改数组找出重复数字</summary>
+
+
+
+
+
+<details>
+  <summary>C++</summary>
+
+
+
+
+```cpp
+class Solution {
+public:
+    int duplicateInArray(vector<int>& nums) {
+        int l = 1;
+        int r = nums.size() - 1;
+        while(l < r){
+            int mid = l + r >> 1;
+            int s = 0;
+            for(auto x : nums) s += (x >= l && x <= mid ? 1 : 0);
+            if(s > mid -l + 1){
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return r;
+    }
+};
+```
+
+
+
+
+
+
+</details>
+
+
+
+<details>
+  <summary>Java</summary>
+
+
+
+
+```java
+class Solution {
+    public int duplicateInArray(int[] nums) {
+        int l = 1;
+        int r = nums.length - 1;
+        while(l < r){
+            int mid = l + r >> 1;
+            int s = 0;
+            for(int x : nums) s += x >= l && x <= mid ? 1 : 0;
+            if(s > mid - l + 1){
+                r = mid;
+            } else {
+                l = mid + 1;
+            }
+        }
+        return l;
+    }
+}
+```
+
+
+
+
+
+
+</details>
+
+
+
+
+
+</details>
+
+<details>
+<summary> 面试题4: 二维数组查找 </summary>
+
+
+
+
+
+<details>
+  <summary>Java</summary>
+
+
+
+
+
+```java
+class Solution {
+    public boolean searchArray(int[][] array, int target) {
+        int maxRow = array.length;
+        if(array == null || maxRow == 0){
+            return false;
+        }
+        int maxCol = array[0].length;
+        int row = 0;
+        int col = array[0].length - 1;
+        while(row >= 0 && row < maxRow && col >= 0 && col < maxCol){
+            if(array[row][col] == target)
+                return true;
+            else if(array[row][col] > target)
+                col--;
+            else if(array[row][col] < target)
+                row++;
+        }
+        return false;
+    }
+}
+
+```
+
+</details>
+
+
+
+<details>
+  <summary>C++</summary>
+
+
+
+
+```cpp
+class Solution {
+public:
+    bool searchArray(vector<vector<int>> array, int target) {
+        int rows = array.size();
+        if(rows == 0) return false;
+        int cols = array[0].size();
+        int row = 0;
+        int col = cols - 1;
+        while(row < rows && col >= 0){
+            if(array[row][col] > target){
+                col --;
+            } else if(array[row][col] < target){
+                row ++;
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+};
+
+```
+
+</details>
+
+
+</details>
+
+
+
+<details>
+<summary> 面试题5: 替换空格 </summary>
+
+
+
+
+
+```java
+public String replaceSpaces(StringBuffer str) {
+// 先计算替换后的字符串的长度
+    int bef = str.length();
+    for(int i = 0; i < bef; i++){
+        if(str.charAt(i) == ' '){
+            str.append("  ");
+        }
+    }
+    int aft = str.length();
+    int i = bef - 1;
+    int j = aft - 1;
+    
+    // 从后往前 对于每个空格进行替换
+    while(j >= 0){
+        char ch = str.charAt(i --);
+        if(ch != ' '){
+            str.setCharAt(j --, ch);
+        } else {
+            str.setCharAt(j --, '0');
+            str.setCharAt(j --, '2');
+            str.setCharAt(j --, '%');
+        }
+    }
+    return str.toString();
+}
+```
+
+</details>
+
+<details>
+  <summary>面试题7:重建二叉树</summary>
+
+
+
+<details>
+    <summary>Java</summary>
+
+
+
+
+二叉树
+
+  ```java
+// 从中序遍历得到左右子树的长度
+
+// 从前序遍历得到根节点
+
+private Map<Integer, Integer> map = new HashMap<>();
+    
+public TreeNode buildTree(int[] preorder, int[] inorder) {
+
+    // 将 下标 - 值 记录 
+    for(int i = 0; i < inorder.length; i++){
+        map.put(inorder[i], i);
+    }
+    return build(preorder, 0, preorder.length - 1, 0);
+}
+public TreeNode build(int[] preorder, int prel, int prer, int inl){
+
+    // 边界
+    if(prel > prer)
+        return null;
+
+    // 根节点
+    int val = preorder[prel];
+    TreeNode root = new TreeNode(val);
+
+    // 中序遍历 inl - index 求出左树的长度
+    int index = map.get(val);
+    int len = index - inl;
+
+    // 左右递归 求出 left right
+    root.left = build(preorder, prel + 1, prel + len, inl);
+    root.right = build(preorder, prel + len + 1, prer, index + 1);
+    return root;
+}
+  ```
+
+</details>
+
+
+
+<details>
+    <summary>Python</summary> 
+
+
+    ```python
+
+class Solution(object):
+    def buildTree(self, preorder, inorder):
+        map = {}
+        def build(preL, preR, inL):
+            if preL > preR:
+                return 
+            # preorder root
+            # 根节点
+​            val = preorder[preL]
+​            root = TreeNode(val)
+​            index = map.get(val)
+​            length = index - inL
+​            root.left = build(preL + 1, preL + length, inL)
+​            root.right = build(preL + length + 1, preR, index + 1)
+​            return root
+​        for i in range(len(inorder)):
+​            map[inorder[i]] = i
+​        return build(0, len(preorder) - 1, 0)
+
+    ```
+    
+    ```
+
+
+</details>
+
+</details>
+
+<details>
+  <summary>面试题8:二叉树的下一个节点</summary>
+
+
+
+ <details>
+     <summary>Java</summary>
+
+
+
+
+
+```java
+public TreeNode inorderSuccessor(TreeNode p) {
+        
+  // 特别判断一下
+  if(p == null)
+    return p;
+
+  // 如果右子树不为空 则结果一定是右树的最左子结点
+  if(p.right != null){
+    TreeNode q = p.right;
+    while(q != null){
+      p = q;
+      q = q.left;
+    }
+    return p;
+  } else {
+
+    // 如果右子树为空 则结果一定为其整个子树的父节点000    
+    TreeNode par = p.father;
+    while(par != null && par.right == p){
+      p = par;
+      par = par.father;
+    }
+    return par;
+  }
+}
+```
+
+</details>
+
+<details>
+    <summary>Python</summary>
+    ```python
+class Solution(object):
+    def inorderSuccessor(self, q):
+        """
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        if not q:
+            return None
+        # 右子树的最左节点
+        if q.right:
+            q = q.right
+            p = q
+            while q:
+                p = q
+                q = q.left
+            return p
+        else:
+            # 整个子树的父节点
+            f = q.father
+            while f and f.right == q:
+                q = f
+                f = q.father
+            return f
+    ```
+
+
+
+
+</details>
+
+
+
+ </details>
+
+<details>
+  <summary>面试题9:用两个栈实现队列</summary>
+
+
+
+<details>
+    <summary>Java</summary>
+
+
+​    
+
+
+  ```java
+class MyQueue {
+
+    Deque<Integer> in;
+    Deque<Integer> out;
+    /** Initialize your data structure here. */
+    public MyQueue() {
+        in = new ArrayDeque<>();
+        out = new ArrayDeque<>();
+    }
+    
+    /** Push element x to the back of queue. */
+    public void push(int x) {
+        in.push(x);
+    }
+    
+    // 假如out是空 则调用此函数填充in
+    public void clearIn(){
+        while(!in.isEmpty()){
+            out.push(in.pop());
+        }
+    }
+    
+    /** Removes the element from in front of queue and returns that element. */
+    public int pop() {
+        if(out.isEmpty()){
+            clearIn();
+        }
+        return out.pop();
+    }
+    
+    /** Get the front element. */
+    public int peek() {
+        if(out.isEmpty()){
+            clearIn();
+        }
+        return out.peek();
+    }
+    
+    /** Returns whether the queue is empty. */
+    public boolean empty() {
+        return out.isEmpty() && in.isEmpty();
+    }
+}
+  ```
+
+</details>
+
+<details>
+    <summary>Python</summary>
+
+
+```python
+class MyQueue(object):
+
+    def __init__(self):
+        """
+        Initialize your data structure here.
+        """
+        self.com = []
+        self.out = []
+
+    def push(self, x):
+        """
+        Push element x to the back of queue.
+        :type x: int
+        :rtype: void
+        """
+        self.com.append(x)
+
+
+    def pop(self):
+        """
+        Removes the element from in front of queue and returns that element.
+        :rtype: int
+        """
+        if not self.out:
+            while len(self.com):
+                self.out.append(self.com.pop())
+        return self.out.pop()
+
+
+    def peek(self):
+        """
+        Get the front element.
+        :rtype: int
+        """
+        if not self.out:
+            while len(self.com):
+                self.out.append(self.com.pop())
+        return self.out[len(self.out) - 1]
+
+
+    def empty(self):
+        """
+        Returns whether the queue is empty.
+        :rtype: bool
+        """
+        return len(self.com) == 0 and len(self.out) == 0;
+
+```
+
+
+
+</details>
+
+</details>
+
+
+
+<details>
+  <summary>面试题10:斐波那契数列</summary>
+
+
+
+
+
+```java
+// a b (c)
+public int Fibonacci(int n) {
+    int a = 0, b = 1, c = 0;
+    while(n -- > 0){
+      c = a + b;
+      a = b;
+      b = c;
+    }
+    return a;
+}
+```
+
+
+
+</details>
+
+
+
+<details>
+  <summary>面试题11: 旋转数组的最小值</summary>
+
+
+
+
+二分查找
+
+```java
+public int findMin(int[] nums) {
+    int n = nums.length - 1;
+    if(n < 0) return -1;
+
+    // 去除nums[n] == nums[0] 的部分
+    while(n > 0 && nums[n] == nums[0]) n --;
+    if(nums[n] >= nums[0]) return nums[0];
+    int l = 0, r = n;
+    while(l < r){
+      int mid = l + r >> 1;
+
+      // 二分的性质选取的是 左边的都 >= nums[0] 右边的都 < nums[0] 
+      if(nums[mid] >= nums[0]){
+        l = mid + 1;
+      } else {
+        r = mid;
+      }
+    }
+    return nums[r];
+}
+```
+
+
+
+</details>
+
+
+
+<details>
+  <summary>面试题12：矩阵中的路径</summary>
+
+
+
+
+
+dfs
+
+```java
+class Solution {
+    
+    public boolean hasPath(char[][] matrix, String str) {
+        int rows = matrix.length;
+        if(rows == 0) return false;
+        int cols = matrix[0].length;
+        for(int i = 0; i < rows; i ++)
+            for(int j = 0; j < cols; j ++){
+                if(matrix[i][j] == str.charAt(0)){
+                    if(dfs(rows, cols, str, 0, matrix, i, j))
+                        return true;
+                }
+            }
+        return false;
+    }
+    
+    public boolean dfs(int rows, int cols, String str, int l, char[][] matrix, int row, int col){
+        if(l == str.length() - 1) return true;
+        char ch = matrix[row][col];
+        
+        // 标记为走过
+        matrix[row][col] = '*';
+        int[] pathx = {0, 1, 0, -1};
+        int[] pathy = {1, 0, -1, 0};
+        for(int i = 0; i < 4; i++){
+            int x = row + pathx[i];
+            int y = col + pathy[i];
+            if(x >= 0 && x < rows && y >= 0 && y < cols && matrix[x][y] == str.charAt(l + 1)){
+                if(dfs(rows, cols, str, l + 1, matrix, x, y))
+                    return true;
+            }
+        }
+        
+        // 将原来的矩阵复位
+        matrix[row][col] = ch;
+        return false;
+    }
+}
+```
+
+
+
+
+
+</details>
+
+
+
+<details>
+  <summary>面试题13:机器人的运动范围</summary>
+
+
+
+
+
+dfs
+
+```java
+class Solution {
+    
+    // dfs 搜索 看能搜索多少个格子
+    private int rows;
+    private int cols;
+    private int threshold;
+    private boolean[][] reach;
+    private int num;
+    private int[][] path = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    
+    public int movingCount(int threshold, int rows, int cols)
+    {
+        this.rows = rows;
+        this.cols = cols;
+        if(rows <= 0 || cols <= 0) return 0;
+        this.threshold = threshold;
+        
+        // 标记是否走过
+        reach = new boolean[rows][cols];
+        dfs(0, 0);
+        return num;
+    }
+    public void dfs(int row, int col){
+        num ++;
+        reach[row][col] = true;
+        for(int i = 0; i < 4; i ++){
+            int x = row + path[i][0];
+            int y = col + path[i][1];
+            if(x >= 0 && x < rows && y >=0 && y < cols && !reach[x][y] && get_sum(x, y) <= threshold){
+                dfs(x, y);
+            }
+        }
+    }
+    // 算出行坐标和列坐标的数位之和
+    public int get_sum(int a, int b){
+        return get_num(a) + get_num(b);
+    }
+    
+    public int get_num(int a){
+        int sum = 0;
+        while(a > 0){
+            sum += a % 10;
+            a /= 10;
+        }
+        return sum;
+    }
+}
+```
+
+
+
+  
+
+</details>
+
+
+
+
+
+<details>
+  <summary>面试题21:调整数据顺序使奇数位于偶数前面</summary>
+
+
+
+
+
+
+```java
+   public void reOrderArray(int [] array) {
+        int l = -1, r = array.length;
+        if(r == 0) return;
+        
+        // 其实就是快排的思想
+        while(l < r){
+            do l ++; while(array[l] % 2 != 0);
+            do r --; while(array[r] % 2 == 0);
+            if(l < r){
+                int temp = array[l];
+                array[l] = array[r];
+                array[r] = temp;
+            }
+        }
+    }
+```
+
+
+
+</details>
+
+
+
+<details>
+  <summary>面试题32：从上到小打印二叉树</summary>
+
+
+
+```java
+   public List<Integer> printFromTopToBottom(TreeNode root) {
+        List<Integer> res = new LinkedList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root == null)
+            return res;
+        queue.add(root);
+        while(!queue.isEmpty()){
+            TreeNode tree = queue.poll();
+            res.add(tree.val);
+            if(tree.left != null) queue.add(tree.left);
+            if(tree.right != null) queue.add(tree.right);
+        }
+        return res;
+    }
+```
+
+</details>
+
+<details>
+  <summary>面试题32.2 分层从上到小打印二叉树</summary>
+
+
+
+
+
+```java
+   public List<List<Integer>> printFromTopToBottom(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        List<List<Integer>> res = new ArrayList<>();
+        if(root == null){
+            return res;
+        }
+        queue.add(root);
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> l = new ArrayList<>();
+            while(size -- > 0){
+                TreeNode tree = queue.poll();
+                l.add(tree.val);
+                if(tree.left != null)
+                    queue.add(tree.left);
+                if(tree.right != null)
+                    queue.add(tree.right);
+            }
+            res.add(l);
+        }
+        return res;
+    }
+```
+
+
+
+
+
+
+</details>
+
+
+### 队列的最大值
+<details>
+  <summary>分析和代码</summary>
+
+### 分析
+
+给定一个数组和窗口大小，求滑动窗口的最大值
+
+可以用单调队列求解
+
+所有元素只会进队一次，出队一次，所以时间负责度是O(N)
+
+```
+for(){
+  1. 如果超出滑动窗口范围，则弹出队头
+  if(队头 <= i - k)
+  队头弹出
+  2. 维护单增的队列
+  while(队尾元素 <= 当前元素)
+  队尾弹出
+  3. 把当前元素的下标放入队尾
+}
+```
+
+### AC代码
+
+<details>
+  <summary>Java</summary>
+
+```java
+class Solution {
+    public int[] maxInWindows(int[] nums, int k) {
+        int n = nums.length;
+        if(n == 0)
+            return new int[] {};
+        List<Integer> res = new ArrayList<>();
+        int[] q = new int[n];
+        int hh = 0;
+        int tt = -1;
+        for(int i = 0; i < n; i ++){
+            // 如果超出滑动窗口范围 则弹出队头
+            if(hh <= tt && q[hh] < i - k + 1){
+                hh ++;
+            }
+            // 如果当前元素 >= 队列头元素 则弹出
+            while(hh <= tt && nums[q[tt]] <= nums[i]){
+                tt --;
+            }
+            // 将元素如队尾
+            q[++ tt] = i;
+            // 每次打印队头
+            if(i >= k - 1){
+                res.add(nums[q[hh]]);
+            }
+        }
+        // ArrayList to []
+        return res.stream().mapToInt(i -> i).toArray();
+    }
+}
+```
+
+</details>
+
+<details>
+  <summary>Python</summary>
+
+
+```python
+class Solution(object):
+    def maxInWindows(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        from collections import deque
+        res = []
+        q = deque()
+        if not nums:
+            return res
+
+        for i in range(len(nums)):
+            if q and q[0] <= i - k:
+                q.popleft()
+            while q and nums[q[-1]] <= nums[i]:
+                q.pop()
+            q.append(i)
+            if i >= k - 1:
+                res.append(nums[q[0]])
+        return res
+
+```
+
+
+
+</details>
+
+
+
+<details>
+  <summary>C++</summary>
+
+
+
+
+
+```c++
+class Solution {
+public:
+    vector<int> maxInWindows(vector<int>& nums, int k) {
+        vector<int> res;
+        int n = nums.size();
+        int q[n], hh = 0, tt = -1;
+        if(n == 0){
+            return res;
+        }
+
+        for(int i = 0; i < n; i++){
+            if(hh <= tt && q[hh] <= i - k){
+                hh ++;
+            }
+            while(hh <= tt && nums[q[tt]] < nums[i]){
+                tt --;
+            }
+            q[++ tt] = i;
+            if(i >= k - 1){
+                res.push_back(nums[q[hh]]);
+            }
+        }
+        return res;
+    }
+};
+```
+
+
+
+
+
+</details>
+
+
+
+<details>
+  <summary>JavaScript</summary>
+
+
+
+
+
+```javascript
+var maxInWindows = function(nums, k) {
+    var res = [];
+    var q = [];
+    for(var i = 0; i < nums.length; i ++){
+        if(q.length !== 0 && q[0] <= i - k){
+            q.shift();
+        }
+        while(q.length !== 0 && nums[q[q.length - 1]] <= nums[i]){
+            q.pop();
+        }
+        q.push(i);
+        if(i >= k - 1){
+            res.push(nums[q[0]]);
+        }
+    }
+    return res;
+};
+
+```
+
+</details>
+
+</details>
+
