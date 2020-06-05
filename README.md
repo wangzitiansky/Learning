@@ -3,7 +3,7 @@
 :book:
 这个仓库主要是自己正在学习的东西的汇总 :clap::clap::clap:
 
-### Book-Notes [:notebook_with_decorative_cover:](https://github.com/users/wangzitiansky/projects/1)
+### Book-Notes [:notebook_with_decorative_cover:](https://github.com/wangzitiansky/Learning/projects/3)
 
 一些读书笔记:pencil2:
 
@@ -21,6 +21,8 @@
 
 主要有几个主题
 具体文章可以点进去看:books:
+
++ [读书笔记:books:](https://github.com/wangzitiansky/Learning/projects/3)
 
 + [算法与数据结构](https://github.com/wangzitiansky/Learning/projects/1)
 
