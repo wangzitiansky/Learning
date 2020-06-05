@@ -7,9 +7,9 @@
 
 一些读书笔记:pencil2:
 
-[Effective Python](https://github.com/wangzitiansky/Effective-Python)
+[Effective Python](./src/book-notes/effective-python/readme.md)
 
-[紫书和算法题打卡](https://github.com/wangzitiansky/Purple-Book)
+[紫书和算法题打卡](./src/book-notes/purple-book/readme.md)
 
 ### Course :mortar_board:
 
