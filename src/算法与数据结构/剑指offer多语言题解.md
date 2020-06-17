@@ -5,13 +5,27 @@
 |  题目  |  链接   |  分类    |     备注    |
 |--------|---------|---------|-------------|
 |队列的最大值|[队列的最大值](#队列的最大值)|
+|矩阵中的路径|[矩阵中的路径](#矩阵中的路径)|DFS|
 
-<details> 
-<summary>面试题3: 找出数组中重复数字</summary>  
+### 找出数组中重复数字
 
-<details>
-  <summary>Java</summary>
+##### 思路分析
 
+```Cpp
+/**
+长度为n的数组，所有数字都在0 - n-1 范围内
+根据容斥原理 必定有重复元素
+解题思路是 将数组元素换位置 使得其元素的值和下标的值一致
+如果发现要换位置的两个元素相等 则找到了重复的元素
+**/
+for i - nums.length:
+    while nums[i] != i：
+        if nums[i] nums[nums[i]] 相等:
+            return
+        swap(nums[i], nums[nums[i]])
+```
+
+##### Java
 ```java
 class Solution {
     public int duplicateInArray(int[] nums) {
@@ -40,12 +54,7 @@ class Solution {
 }
 ```
 
-</details>
-
-<details>
-  <summary>C++</summary>
-
-
+##### Cpp
   ```cpp
 class Solution {
 public:
@@ -68,22 +77,9 @@ public:
         return -1;
     }
 };
-  ```
+```
 
-
-
-
-
-</details>
-
-
-
-<details>
-  <summary>Python</summary>
-
-
-
-
+##### Python
 ```python
 class Solution(object):
     def duplicateInArray(self, nums):
@@ -106,32 +102,9 @@ class Solution(object):
         return -1
 ```
 
+### 不修改数组找出重复数字
 
-
-
-
-
-</details>
-
-
-
-
-
-</details>
-
-<details>
-  <summary>面试题3.2：不修改数组找出重复数字</summary>
-
-
-
-
-
-<details>
-  <summary>C++</summary>
-
-
-
-
+##### Cpp
 ```cpp
 class Solution {
 public:
@@ -152,22 +125,7 @@ public:
     }
 };
 ```
-
-
-
-
-
-
-</details>
-
-
-
-<details>
-  <summary>Java</summary>
-
-
-
-
+##### Java
 ```java
 class Solution {
     public int duplicateInArray(int[] nums) {
@@ -187,19 +145,6 @@ class Solution {
     }
 }
 ```
-
-
-
-
-
-
-</details>
-
-
-
-
-
-</details>
 
 <details>
 <summary> 面试题4: 二维数组查找 </summary>
@@ -667,16 +612,9 @@ public int findMin(int[] nums) {
 </details>
 
 
+### 矩阵中的路径
 
-<details>
-  <summary>面试题12：矩阵中的路径</summary>
-
-
-
-
-
-dfs
-
+##### Java
 ```java
 class Solution {
     
@@ -718,23 +656,44 @@ class Solution {
 }
 ```
 
+##### Python
 
+```python
+class Solution(object):
+    def hasPath(self, matrix, string):
 
+        def dfs(row, col, k):
+            if k == len(string) - 1:
+                return True
+            # 标记此点已经走过
+            c = matrix[row][col]
+            matrix[row][col] = '*'
+            path = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+            for i in range(4):
+                nx = row + path[i][0]
+                ny = col + path[i][1]
+                if nx >= 0 and nx < rows and ny >= 0 and ny < cols and matrix[nx][ny] == string[k + 1]:
+                    if dfs(nx, ny, k + 1):
+                        return True
+            # 讲此点恢复
+            matrix[row][col] = c
+            return False
 
+        rows = len(matrix)
+        if rows == 0:
+            return False
+        cols = len(matrix[0])
+        for i in range(rows):
+            for j in range(cols):
+                if matrix[i][j] == string[0]:
+                    if dfs(i, j, 0):
+                        return True
+        return False
+```
 
-</details>
+### 面试题13:机器人的运动范围
 
-
-
-<details>
-  <summary>面试题13:机器人的运动范围</summary>
-
-
-
-
-
-dfs
-
+##### Java
 ```java
 class Solution {
     
@@ -784,23 +743,13 @@ class Solution {
     }
 }
 ```
+##### Python
+```Python
 
-
-
-  
-
-</details>
-
-
-
-
+```
 
 <details>
   <summary>面试题21:调整数据顺序使奇数位于偶数前面</summary>
-
-
-
-
 
 
 ```java
@@ -994,9 +943,6 @@ class Solution(object):
   <summary>C++</summary>
 
 
-
-
-
 ```c++
 class Solution {
 public:
@@ -1025,20 +971,12 @@ public:
 };
 ```
 
-
-
-
-
 </details>
 
 
 
 <details>
   <summary>JavaScript</summary>
-
-
-
-
 
 ```javascript
 var maxInWindows = function(nums, k) {
