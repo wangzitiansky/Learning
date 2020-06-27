@@ -32,7 +32,7 @@ apt-get install zlib1g-dev
 
 ### Configure
 
-configure生成中间文件
+configure生成中间文件 这里的路径是nginx编译好之后的路径
 ```bash
 ./configure --prefix=/home/wzt/nginx
 ```
