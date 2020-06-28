@@ -1,6 +1,6 @@
 # location指令
 
-# 示例
+### 示例
 
 ```c
 server {
