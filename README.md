@@ -9,7 +9,7 @@
 
 [Effective Python](./src/book-notes/effective-python/readme.md)
 
-[紫书和算法题打卡](./src/book-notes/purple-book/readme.md)
+[算法刷题总结](./src/book-notes/purple-book/readme.md)
 
 ### Course :mortar_board:
 

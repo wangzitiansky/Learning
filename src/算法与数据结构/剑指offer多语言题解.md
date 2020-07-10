@@ -4,8 +4,19 @@
 
 |  题目  |  链接   |  分类    |     备注    |
 |--------|---------|---------|-------------|
-|队列的最大值|[队列的最大值](#队列的最大值)|
+|3.找出数组中重复数字 |[找出数组中重复数字](#找出数组中重复数字) | 数组 |
+|4.二维数组查找 | [二维数组查找](#二维数组查找) | 数组 |
+|5.替换空格|[替换空格](#替换空格)|字符串 |
+|7.重建二叉树|[重建二叉树](#重建二叉树)| 树 |
+|8.二叉树的下一个节点|[二叉树的下一个节点](#二叉树的下一个节点)| 树 |
+|9.用两个栈实现队列|[用两个栈实现队列](#用两个栈实现队列)| 栈与队列 |
+|10.斐波那契数列|[斐波那契数列](#斐波那契数列)| 动态规划 |
+|11.旋转数组的最小值|[旋转数组的最小值](#旋转数组的最小值)|二分|
 |矩阵中的路径|[矩阵中的路径](#矩阵中的路径)|DFS|
+|32.1从上到下打印二叉树| [从上到下打印二叉树](#从上到下打印二叉树) | 宽度优先搜索 |
+|32.2分层从上到下打印二叉树2| [分层从上到下打印二叉树2](#分层从上到下打印二叉树2) | 宽度优先搜索 |
+|58.左旋字符串|[左旋字符串](#左旋字符串)| 字符串 |
+|59.队列最大值|[队列最大值](#队列最大值)|单调队列|
 
 ### 找出数组中重复数字
 
@@ -55,7 +66,7 @@ class Solution {
 ```
 
 ##### Cpp
-  ```cpp
+```cpp
 class Solution {
 public:
     int duplicateInArray(vector<int>& nums) {
@@ -146,20 +157,15 @@ class Solution {
 }
 ```
 
-<details>
-<summary> 面试题4: 二维数组查找 </summary>
+#### 二维数组查找
 
+### 分析
 
+根据题意，从右上角开始搜索，此点下面的点都比他大，左边的点都比他小
 
+### AC代码
 
-
-<details>
-  <summary>Java</summary>
-
-
-
-
-
+Java
 ```java
 class Solution {
     public boolean searchArray(int[][] array, int target) {
@@ -184,15 +190,7 @@ class Solution {
 
 ```
 
-</details>
-
-
-
-<details>
-  <summary>C++</summary>
-
-
-
+C++
 
 ```cpp
 class Solution {
@@ -218,20 +216,15 @@ public:
 
 ```
 
-</details>
+### 替换空格
 
+### 分析
 
-</details>
+先将字符串通过追加空格变长，之后再从后往前将字符串进行替换
 
+### AC代码
 
-
-<details>
-<summary> 面试题5: 替换空格 </summary>
-
-
-
-
-
+Java
 ```java
 public String replaceSpaces(StringBuffer str) {
 // 先计算替换后的字符串的长度
@@ -260,20 +253,14 @@ public String replaceSpaces(StringBuffer str) {
 }
 ```
 
-</details>
 
-<details>
-  <summary>面试题7:重建二叉树</summary>
+### 重建二叉树
 
+### 分析
 
+### AC代码
 
-<details>
-    <summary>Java</summary>
-
-
-
-
-二叉树
+Java
 
   ```java
 // 从中序遍历得到左右子树的长度
@@ -311,16 +298,8 @@ public TreeNode build(int[] preorder, int prel, int prer, int inl){
 }
   ```
 
-</details>
-
-
-
-<details>
-    <summary>Python</summary> 
-
-
-    ```python
-
+Python
+```python
 class Solution(object):
     def buildTree(self, preorder, inorder):
         map = {}
@@ -339,28 +318,15 @@ class Solution(object):
 ​        for i in range(len(inorder)):
 ​            map[inorder[i]] = i
 ​        return build(0, len(preorder) - 1, 0)
+```
 
-    ```
-    
-    ```
+### 二叉树的下一个节点
 
+### 分析
 
-</details>
+### AC代码
 
-</details>
-
-<details>
-  <summary>面试题8:二叉树的下一个节点</summary>
-
-
-
- <details>
-     <summary>Java</summary>
-
-
-
-
-
+Java
 ```java
 public TreeNode inorderSuccessor(TreeNode p) {
         
@@ -389,11 +355,8 @@ public TreeNode inorderSuccessor(TreeNode p) {
 }
 ```
 
-</details>
-
-<details>
-    <summary>Python</summary>
-    ```python
+Python
+```python
 class Solution(object):
     def inorderSuccessor(self, q):
         """
@@ -417,30 +380,18 @@ class Solution(object):
                 q = f
                 f = q.father
             return f
-    ```
+```
 
 
+### 用两个栈实现队列
 
+### 分析
 
-</details>
+### AC代码
 
+Java 
 
-
- </details>
-
-<details>
-  <summary>面试题9:用两个栈实现队列</summary>
-
-
-
-<details>
-    <summary>Java</summary>
-
-
-​    
-
-
-  ```java
+```java
 class MyQueue {
 
     Deque<Integer> in;
@@ -484,13 +435,9 @@ class MyQueue {
         return out.isEmpty() && in.isEmpty();
     }
 }
-  ```
+```
 
-</details>
-
-<details>
-    <summary>Python</summary>
-
+Python
 
 ```python
 class MyQueue(object):
@@ -542,20 +489,11 @@ class MyQueue(object):
 
 ```
 
+### 斐波那契数列
 
+### 分析
 
-</details>
-
-</details>
-
-
-
-<details>
-  <summary>面试题10:斐波那契数列</summary>
-
-
-
-
+### AC代码
 
 ```java
 // a b (c)
@@ -570,17 +508,11 @@ public int Fibonacci(int n) {
 }
 ```
 
+### 旋转数组的最小值
 
+### 分析
 
-</details>
-
-
-
-<details>
-  <summary>面试题11: 旋转数组的最小值</summary>
-
-
-
+### AC代码
 
 二分查找
 
@@ -606,10 +538,6 @@ public int findMin(int[] nums) {
     return nums[r];
 }
 ```
-
-
-
-</details>
 
 
 ### 矩阵中的路径
@@ -775,11 +703,13 @@ class Solution {
 </details>
 
 
+### 从上到下打印二叉树
 
-<details>
-  <summary>面试题32：从上到小打印二叉树</summary>
+### 分析
 
+层序遍历
 
+### AC代码
 
 ```java
    public List<Integer> printFromTopToBottom(TreeNode root) {
@@ -798,14 +728,15 @@ class Solution {
     }
 ```
 
-</details>
+### 分层从上到下打印二叉树2
 
-<details>
-  <summary>面试题32.2 分层从上到小打印二叉树</summary>
+面试题32.2
 
+### 分析
 
+层序遍历
 
-
+### AC代码
 
 ```java
    public List<List<Integer>> printFromTopToBottom(TreeNode root) {
@@ -834,15 +765,28 @@ class Solution {
 
 
 
-
-
-
 </details>
 
+### 左旋字符串
 
-### 队列的最大值
-<details>
-  <summary>分析和代码</summary>
+面试题58
+
+### 分析
+
+将字符串后面的若干字符转移到前面，可以用切片求解
+
+### AC代码
+
+Python
+```python
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        return s[n:] + s[0:n]
+```
+
+### 队列最大值
+
+面试题59
 
 ### 分析
 
@@ -866,8 +810,7 @@ for(){
 
 ### AC代码
 
-<details>
-  <summary>Java</summary>
+Java
 
 ```java
 class Solution {
@@ -901,11 +844,8 @@ class Solution {
 }
 ```
 
-</details>
 
-<details>
-  <summary>Python</summary>
-
+Python
 
 ```python
 class Solution(object):
@@ -933,15 +873,7 @@ class Solution(object):
 
 ```
 
-
-
-</details>
-
-
-
-<details>
-  <summary>C++</summary>
-
+C++
 
 ```c++
 class Solution {
@@ -971,12 +903,7 @@ public:
 };
 ```
 
-</details>
-
-
-
-<details>
-  <summary>JavaScript</summary>
+JavaScript
 
 ```javascript
 var maxInWindows = function(nums, k) {
@@ -998,8 +925,4 @@ var maxInWindows = function(nums, k) {
 };
 
 ```
-
-</details>
-
-</details>
 
