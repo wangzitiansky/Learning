@@ -7,12 +7,16 @@
 |3.找出数组中重复数字 |[找出数组中重复数字](#找出数组中重复数字) | 数组 |
 |4.二维数组查找 | [二维数组查找](#二维数组查找) | 数组 |
 |5.替换空格|[替换空格](#替换空格)|字符串 |
+|6.从尾到头打印链表| [从尾到头打印链表](#从尾到头打印链表)| 链表 |
 |7.重建二叉树|[重建二叉树](#重建二叉树)| 树 |
 |8.二叉树的下一个节点|[二叉树的下一个节点](#二叉树的下一个节点)| 树 |
 |9.用两个栈实现队列|[用两个栈实现队列](#用两个栈实现队列)| 栈与队列 |
 |10.斐波那契数列|[斐波那契数列](#斐波那契数列)| 动态规划 |
 |11.旋转数组的最小值|[旋转数组的最小值](#旋转数组的最小值)|二分|
-|矩阵中的路径|[矩阵中的路径](#矩阵中的路径)|DFS|
+|12.矩阵中的路径|[矩阵中的路径](#矩阵中的路径)|DFS|
+|18.删除链表的节点| [删除链表的节点](#删除链表的节点) | 链表 |
+|22.链表倒数第k个节点|[链表倒数第k个节点](#链表倒数第k个节点)| 链表 |
+|24.反转链表|[反转链表](#反转链表)| 链表 |
 |32.1从上到下打印二叉树| [从上到下打印二叉树](#从上到下打印二叉树) | 宽度优先搜索 |
 |32.2分层从上到下打印二叉树2| [分层从上到下打印二叉树2](#分层从上到下打印二叉树2) | 宽度优先搜索 |
 |58.左旋字符串|[左旋字符串](#左旋字符串)| 字符串 |
@@ -253,6 +257,29 @@ public String replaceSpaces(StringBuffer str) {
 }
 ```
 
+### 从尾到头打印链表
+
+### 分析
+
+可以先顺序打印，之后再进行反转
+
+### AC代码
+
+Java
+```java
+class Solution {
+    public int[] reversePrint(ListNode head) {
+        List<Integer> res = new ArrayList<>();
+        if(head == null) return new int [] {};
+        while(head != null){
+            res.add(head.val);
+            head = head.next;
+        }
+        Collections.reverse(res);
+        return res.stream().mapToInt(o -> o).toArray();
+    }
+}
+```
 
 ### 重建二叉树
 
@@ -539,6 +566,86 @@ public int findMin(int[] nums) {
 }
 ```
 
+### 删除链表的节点
+
+### 分析
+
+因为要删除，所以需要找到被删除结点cur，并且需要记录cur的前一个结点pre。注意被删除的结点是第一个结点的特殊情况。
+
+### AC代码
+
+Java
+```java
+class Solution {
+    public ListNode deleteNode(ListNode head, int val) {
+        ListNode cur = head;
+        ListNode pre = null;
+        while(cur.val != val){
+            pre = cur;
+            cur = cur.next;
+        }
+        if(pre != null)
+            pre.next = cur.next;
+        else
+            head = head.next;
+        cur.next = null;
+        return head;
+    }
+}
+```
+
+### 链表倒数第k个节点
+
+### 分析
+
+双指针，一个指针想走k步，之后快慢指针一起走，快指针是null的时候，返回慢指针
+
+### AC代码
+
+```java
+class Solution {
+    public ListNode getKthFromEnd(ListNode head, int k) {
+        ListNode cur = head;
+        while(cur != null && k -- > 0){
+            cur = cur.next;
+        }
+        if(k > 0) return null;
+        ListNode pre = head;
+        while(cur != null){
+            pre = pre.next;
+            cur = cur.next;
+        }
+        return pre;
+    }
+}
+```
+
+### 反转链表
+
+### 分析
+
+### AC代码
+
+##### Java
+
+```java
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head == null) return head;
+        ListNode pre = null;
+        ListNode cur = head;
+        ListNode ne = cur.next;
+        while(ne != null){
+            cur.next = pre;
+            pre = cur;
+            cur = ne;
+            ne = cur.next;
+        }
+        cur.next = pre;
+        return cur;
+    }
+}
+```
 
 ### 矩阵中的路径
 
