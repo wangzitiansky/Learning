@@ -17,8 +17,11 @@
 |18.删除链表的节点| [删除链表的节点](#删除链表的节点) | 链表 |
 |22.链表倒数第k个节点|[链表倒数第k个节点](#链表倒数第k个节点)| 链表 |
 |24.反转链表|[反转链表](#反转链表)| 链表 |
+|26.树的子结构|[树的子结构](#树的子结构)| 树 |
+|27.二叉树的镜像|[二叉树的镜像](#二叉树的镜像)| 树 | 
 |32.1从上到下打印二叉树| [从上到下打印二叉树](#从上到下打印二叉树) | 宽度优先搜索 |
 |32.2分层从上到下打印二叉树2| [分层从上到下打印二叉树2](#分层从上到下打印二叉树2) | 宽度优先搜索 |
+|32.3分层从上到下打印二叉树3| [分层从上到下打印二叉树3](#分层从上到下打印二叉树3) | 宽度优先搜索 |
 |58.左旋字符串|[左旋字符串](#左旋字符串)| 字符串 |
 |59.队列最大值|[队列最大值](#队列最大值)|单调队列|
 
@@ -647,6 +650,79 @@ class Solution {
 }
 ```
 
+### 树的子结构
+
+### 分析
+
+其实就是递归做
+
+### AC代码
+
+```java
+class Solution {
+
+    public boolean isSub(TreeNode A, TreeNode B){
+        if(B == null) return true;
+        if(A == null) return false;
+        if(A.val == B.val) return isSub(A.left, B.left) && isSub(A.right, B.right);
+        else return false;
+    }
+
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        if(B == null) return false;
+        if(A == null) return false;
+        if(A.val == B.val) {
+            if(isSub(A.left, B.left) && isSub(A.right, B.right))  return true;
+        }
+        return isSubStructure(A.left, B) || isSubStructure(A.right, B);
+    }
+
+}
+```
+### 二叉树的镜像
+
+### 分析
+
+递归，注意交换节点的写法
+
+### AC代码
+
+```java
+class Solution {
+    public TreeNode mirrorTree(TreeNode root) {
+        if(root == null) return root;
+        TreeNode tmp = root.right;
+        root.right = mirrorTree(root.left);
+        root.left = mirrorTree(tmp);
+        return root;
+    }
+}
+```
+
+### 对称的二叉树
+
+### 分析
+
+如果当前节点的值不相等，返回false，如果相等，就递归(left.left, right.right) && (left.right, right.left)
+
+### AC代码
+
+```java
+class Solution {
+
+    public boolean dfs(TreeNode p, TreeNode q){
+        if(q == null || p == null) return (p == null) && (q == null);
+        if(p.val != q.val) return false;
+        return dfs(p.left, q.right) && dfs(p.right, q.left);
+    }
+
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null) return true;
+        return dfs(root.left, root.right);
+    }
+}
+```
+
 ### 矩阵中的路径
 
 ##### Java
@@ -807,8 +883,6 @@ class Solution {
 
 
 
-</details>
-
 
 ### 从上到下打印二叉树
 
@@ -870,9 +944,73 @@ class Solution {
     }
 ```
 
+### 分层从上到下打印二叉树3
+
+### 分析
+
+宽搜模板提
+
+### AC代码
+
+```java
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(root == null) return res;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+        boolean reverse = false;
+        while(!queue.isEmpty()){
+            int size = queue.size();
+            List<Integer> tmp = new ArrayList<>();
+            while(size -- > 0){
+                TreeNode node = queue.poll();
+                tmp.add(node.val);
+                if(node.left != null) queue.add(node.left);
+                if(node.right != null) queue.add(node.right);
+            }
+            if(reverse) Collections.reverse(tmp);
+            reverse = !reverse;
+            res.add(tmp);
+        }
+        return res;
+    }
+}
+```
 
 
-</details>
+### 二叉树中和为某一值的路径
+
+### 
+
+### AC代码
+
+```java
+class Solution {
+
+    public void dfs(List<List<Integer>> res, List<Integer> tmp, TreeNode root, int sum){
+        if(root == null) return;
+        int val = root.val;
+        tmp.add(val);
+        if(val == sum && root.left == null && root.right == null){
+            res.add(new ArrayList<>(tmp));
+            tmp.remove(tmp.size() - 1);
+            return;
+        }
+        dfs(res, tmp, root.left, sum - val);
+        dfs(res, tmp, root.right, sum - val);
+        tmp.remove(tmp.size() - 1);
+    }
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> res = new ArrayList<>();
+        if(root == null) return res;
+        dfs(res, new ArrayList<>(), root, sum);
+        return res;
+    }
+}
+```
+
 
 ### 左旋字符串
 
