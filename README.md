@@ -17,6 +17,8 @@
 
 [The-Missing-Semester-of-Your-CS-Education](https://github.com/wangzitiansky/The-Missing-Semester-of-Your-CS-Education--)
 
+[Nginx核心知识100讲](course-note/nginx/README.md)
+
 ### 博客
 
 主要有几个主题
