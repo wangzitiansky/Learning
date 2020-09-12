@@ -6,3 +6,4 @@
 
 + [编译 Nginx](初识nginx/编译Nginx.md)
 
++ [热部署与日志切割](初识nginx/命令行及其演示.md)

@@ -1,5 +1,7 @@
 # 编译Nginx
 
+课程链接 [:books:](https://time.geekbang.org/course/detail/100020301-65069)
+
 ### 下载Nginx源代码
 
 先将`Nginx`的源代码下载下来
